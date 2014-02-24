@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quoa xmlns="http://sourceforge.net/quoa" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://sourceforge.net/quoa quoa.xsd ">
+  <adapters-source>
+  	<adapter-source name="person.name">
+  		<source url="file:D:\study\workspace\beanoa\tests\quoa\names2.csv">
+  			<argument name="separator" value=";"/>
+  			<mappings>
+  				<!-- 
+  					columns()[i] in this context there is a csv column.
+  					columns() is a function that returns all columns from a csv line.
+  					Ex: 456565;988998
+  					    column[0] = 456565
+  					    column[1] = 988998 
+  					    
+  				 -->
+  				<mapping key = "document" value = "columns()[0]"/>
+  				<mapping key = "name"     value = "columns()[1]"/>
+  			</mappings>
+  			
+  			<criteria description = "Quering by Document">
+  				<condition>
+  					columns()[0] == ${document}
+  				</condition>
+  			</criteria>
+  		</source>
+  	</adapter-source>
+  	
+  	<adapter-source name = "address.type">
+		<source url = "file:D:\study\workspace\beanoa\src\net\sourceforge\quoa\xml\AddressType.xml">
+			<!-- Use this attribute to configure the prefix of the value mapping -->
+			<mappings prefix = "/AddressesTypes/type">
+								
+				<!-- relative of prefix mapping -->
+				<mapping key = "code"        value = "code/text()"/>
+				<mapping key = "description" value = "description/text()"/>
+ 			</mappings>
+ 			<criteria description = "XPath syntax: Quering by Type Code">
+ 				<condition>
+ 					/AddressesTypes/type[code='${code}']
+ 				</condition>
+ 			</criteria>
+		</source>
+	</adapter-source>
+	
+	<adapter-source name="address.country">
+		<source url="file:D:\study\workspace\beanoa\tests\quoa\countries.properties">
+			<mappings>
+				<mapping key = "code"        value = "prefix()"/>
+				<!-- 
+					prefix().value() in this context is the value of property.
+					Ex: br = Brasil
+					br = prefix()
+					Brasil = prefix().value()
+				 -->
+				<mapping key = "description" value = "prefix().value()"/>
+			</mappings>
+		</source>
+	</adapter-source>
+	
+	<adapter-source name="address.state">
+		<source url="file:D:\study\workspace\beanoa\tests\quoa\states.properties">
+			<mappings>
+				<!--
+					Prefix based mapping.
+					prefix() in this context is the key property in the properties file.
+					Ex: 
+					  sp = São Paulo
+					  'sp' is the code of state
+				 -->
+				<mapping key = "code"          value = "prefix()"/>
+				<mapping key = "description"   value = "prefix().value()"/>
+				<mapping key = "country"       value = "prefix().country"/>
+			</mappings>
+			<!-- no criteria because if there is a property 'code', then the criteria is satisfied -->
+		</source>
+	</adapter-source>
+	
+	<adapter-source name="address.city">
+		<source url="file:D:\study\workspace\beanoa\tests\quoa\cities.properties">
+			<mappings>
+				<mapping key = "code"        value = "prefix()"/>
+				<mapping key = "description" value = "prefix().value()"/>
+				<mapping key = "state"       value = "prefix().state"/>
+			</mappings>
+		</source>
+	</adapter-source>
+	
+    <adapter-source name = "address.type.FTP">
+		<source url = "ftp://sourceforge.net/quoa/xml/AddressType.xml">
+			<argument name = "remote.user" value = ""/>
+			<argument name = "remote.pass" value = ""/>
+			<argument name = "proxy.user" value = ""/>
+			<argument name = "proxy.pass" value = ""/>
+			<argument name = "proxy.host" value = ""/>
+			<argument name = "proxy.port" value = ""/>
+			<mappings>
+				<mapping key = "" value = ""/>
+ 			</mappings>
+		</source>
+		<cache location = "C:\temp">
+			<timeout time = "1" type = "HOURS"/>
+		</cache>
+	</adapter-source>
+  </adapters-source>
+</quoa>

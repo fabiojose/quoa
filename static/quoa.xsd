@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://sourceforge.net/quoa" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:qu="http://sourceforge.net/quoa">
+
+    
+    
+
+
+
+    <complexType name="Quoa">
+    	<sequence>
+    		<element name="adapters-source" type="qu:AdaptersSource" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+    
+    <element name="quoa" type="qu:Quoa"></element>
+
+    <complexType name="Argument">
+    	<attribute name="name" type="string" use="required"></attribute>
+    	<attribute name="value" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="AdapterSource">
+    	<sequence>
+    		<element name="source" type="qu:Source" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="cache" type="qu:Cache" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    	<attribute name="name" type="string" use="required"></attribute>
+    </complexType>
+    
+    <complexType name="Source">
+    	<sequence>
+    		<element name="argument" type="qu:Argument"
+    			maxOccurs="unbounded" minOccurs="0">
+    		</element>
+    		<element name="mappings" type="qu:Mappings" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="criteria" type="qu:Criteria" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="url" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="AdaptersSource">
+    	<sequence>
+    		<element name="adapter-source" type="qu:AdapterSource" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Cache">
+    	<sequence>
+    		<element name="timeout" type="qu:Period" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    	<attribute name="location" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="Mapping">
+    	<attribute name="key" type="string" use="required"></attribute>
+    	<attribute name="value" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="Mappings">
+    	<sequence>
+    		<element name="mapping" type="qu:Mapping"
+    			maxOccurs="unbounded" minOccurs="1">
+    		</element>
+    	</sequence>
+    	<attribute name="prefix" type="string"></attribute>
+    </complexType>
+
+    <complexType name="Criteria">
+    	<sequence>
+    		<element name="condition" type="string" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    	<attribute name="description" type="string"></attribute>
+    </complexType>
+
+    <complexType name="Period">
+    	<attribute name="time" type="int" use="required"></attribute>
+    	<attribute name="type">
+    		<simpleType>
+    			<restriction base="string">
+    				<enumeration value="SECONDS"></enumeration>
+    				<enumeration value="MINUTES"></enumeration>
+    				<enumeration value="HOURS"></enumeration>
+    				<enumeration value="DAYS"></enumeration>
+    			</restriction>
+    		</simpleType>
+    	</attribute>
+    </complexType>
+</schema>
