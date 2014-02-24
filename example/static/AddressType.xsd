@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://sourceforge.net/quoa/AddressType" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:qu="http://sourceforge.net/quoa/AddressType">
+
+    <complexType name="AddressType">
+    	<sequence>
+    		<element name="code" type="long" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="description" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="AddressesTypes">
+    	<sequence>
+    		<element name="type" type="qu:AddressType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="AddressesTypes" type="qu:AddressesTypes"></element>
+</schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AddressesTypes>
+  <type>
+    <code>1</code>
+    <description>RESIDENCIAL</description>
+  </type>
+  
+  <type>
+    <code>2</code>
+    <description>COMERCIAL</description>
+  </type>
+  
+  <type>
+    <code>3</code>
+    <description>CORRESPONDENCIA</description>
+  </type>
+  
+  <type>
+    <code>66666</code>
+    <description>COMERCIAL</description>
+  </type>
+  
+   <type>
+    <code>666</code>
+    <description>ZUMBI</description>
+  </type>
+</AddressesTypes>
